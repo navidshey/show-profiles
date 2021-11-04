@@ -3,7 +3,7 @@ import ProfileLocation from './location';
 
 const getLocationUrl = "https://rickandmortyapi.com/api/location/";
 
-/**return an array of locations
+/**get an array of locations
  * 
  * @param ids - location ids which are seperated by ,
  * @returns - an array of Locaitons or undefined when something were wrong!
@@ -13,11 +13,11 @@ export const getLocations = async (ids: string) : Promise<ProfileLocation[] | un
     const result = axios
     .get(`${getLocationUrl}${ids}`)
     .then((res) =>{
-       let data: ProfileLocation[] =  res.data;
+       const data: ProfileLocation[] =  res.data;
        return data;
     })
-    .catch((err) =>{
-      console.log(err);
+    .catch(() =>{
+       //TODO: we have to handle true error message, if we know what are them
       return undefined;
     }
     );

@@ -5,9 +5,9 @@ import Spinner from "./components/custom/Spinner/Spinner";
 function App(): ReactElement {
   return (
     <body>
-     <Suspense fallback={<Spinner />}>
-            <MyRoute></MyRoute>
-          </Suspense>
+      <Suspense fallback={<Spinner />}>
+        <MyRoute></MyRoute>
+      </Suspense>
     </body>
   );
 }

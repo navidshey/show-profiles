@@ -3,26 +3,31 @@ import React, { ReactElement } from "react";
 const Profiles = React.lazy(() => import("../profile/Profiles"));
 const NotFound = React.lazy(() => import("./NotFound"));
 
+/**
+ * @param id - id of the route
+ * @param exact determines that a Route should considered exact route or not
+ * @param path determines the path of the screen component
+ * @param component determines the name of the component that we are defining its route
+ */
 interface RouteType {
+  id: string;
   exact: boolean;
   path: string;
   component: any;
 }
 
-/**
- * The routing of the application will handle here.
+/** The routing of the application will handle here.
  * we have an array of needed properties for @MyRoute Component.
- * @param exact determines that a Route should considered exact route or not
- * @param path determines the path of the screen component
- * @param component determines the name of the component that we are defining its route
  */
 const routes: RouteType[] = [
   {
+    id: "home",
     exact: true,
     path: "/:page?",
     component: Profiles,
   },
   {
+    id: "notfound",
     exact: false,
     path: "*",
     component: NotFound,
@@ -37,7 +42,7 @@ const MyRoute = (): ReactElement => {
   return (
     <Switch>
       {routes.map((route) => (
-        <Route {...route} />
+        <Route key={route.id} {...route} />
       ))}
     </Switch>
   );
