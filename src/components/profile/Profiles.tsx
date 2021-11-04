@@ -27,7 +27,12 @@ const Profiles = (): ReactElement => {
       {isLoading && <Spinner />}
       {profiles &&
         profiles.results.map((character) => {
-          return <ProfileCard key={`character-${character.id}`} character={character} />;
+          return (
+            <ProfileCard
+              key={`character-${character.id}`}
+              character={character}
+            />
+          );
         })}
       {!isLoading && !profiles && <div>Error in fetching data!</div>}
       {profiles && profiles.info && +profiles.info.count > 0 && (

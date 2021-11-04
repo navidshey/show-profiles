@@ -3,11 +3,14 @@ import { Character } from "../../api/profile/profile";
 import "./profile.css";
 import { getLocations } from "./../../api/location/locationApi";
 import ProfileLocation from "../../api/location/location";
+import { getEpisodeNames } from "../../api/episode/episodeApi";
 
 const ProfileCard = ({ character }: { character: Character }): ReactElement => {
   const [location, setLocation] = useState<ProfileLocation | undefined>();
   const [origin, setOrigin] = useState<ProfileLocation | undefined>();
+  const [episodeNames, setEpisodeNames] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [episodeLoading, setEpisodeLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,6 +35,16 @@ const ProfileCard = ({ character }: { character: Character }): ReactElement => {
     }
   }, []);
 
+  const fetchEpisodes = async () => {
+    const episodesId = character.episode
+      .map((episode) => episode.substr(episode.lastIndexOf("/") + 1))
+      .join(",");
+    setEpisodeLoading(true);
+    const episodes = await getEpisodeNames(episodesId);
+    setEpisodeNames(episodes);
+    setEpisodeLoading(false);
+  };
+
   return (
     <div className="card">
       <div className="card-image">
@@ -39,7 +52,16 @@ const ProfileCard = ({ character }: { character: Character }): ReactElement => {
       </div>
       <p className="name">{`${character.name} (${character.gender})`}</p>
       <p>{`${character.species} (${character.status})`}</p>
-      <p>{`Episode Numbers: ${character.episode.length}`}</p>
+      <p>
+        {`Episode Numbers: ${character.episode.length},`}{" "}
+        {!episodeNames && (
+          <span className="episode-name" onClick={fetchEpisodes}>
+            (See Names)
+          </span>
+        )}{" "}
+      </p>
+      {episodeLoading && <p>...</p>}
+      {!episodeLoading && episodeNames && <p> {episodeNames} </p>}
       <div className="card-inner">
         <p>{`Location: ${character.location.name}`}</p>
         {isLoading && <p> ... </p>}

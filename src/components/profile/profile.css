@@ -59,3 +59,8 @@ p {
     letter-spacing: 0.8px;
     margin-bottom: 8px;
 }
+
+.episode-name{
+    color: steelblue;
+    cursor: pointer;
+}
