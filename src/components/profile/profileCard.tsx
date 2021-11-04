@@ -61,7 +61,9 @@ const ProfileCard = ({ character }: { character: Character }): ReactElement => {
         )}{" "}
       </p>
       {episodeLoading && <p>...</p>}
-      {!episodeLoading && episodeNames && <p> {episodeNames} </p>}
+      {!episodeLoading && episodeNames && (
+        <p className="card-inner"> {episodeNames} </p>
+      )}
       <div className="card-inner">
         <p>{`Location: ${character.location.name}`}</p>
         {isLoading && <p> ... </p>}

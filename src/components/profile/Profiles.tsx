@@ -20,6 +20,7 @@ const Profiles = (): ReactElement => {
       setProfiles(result);
       setIsLoading(false);
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
   return (
