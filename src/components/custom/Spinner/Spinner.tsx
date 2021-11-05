@@ -1,6 +1,6 @@
 import spinner from "./spinner.gif";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { ReactElement } from "react";
 
 const SpinnerDiv = styled.div`
   margin: 0% auto 0 auto;
@@ -14,7 +14,7 @@ const SpinnerImage = styled.img`
   display: "block";
 `;
 
-const Spinner = () => {
+const Spinner = (): ReactElement => {
   return (
     <SpinnerDiv>
       <SpinnerImage src={spinner} className="spinner" alt="Loading ..." />

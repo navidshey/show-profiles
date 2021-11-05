@@ -13,7 +13,7 @@ interface RouteType {
   id: string;
   exact: boolean;
   path: string;
-  component: any;
+  component: React.ComponentType;
 }
 
 /** The routing of the application will handle here.

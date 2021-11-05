@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 import { Character } from "../../api/profile/profile";
 import "./profile.css";
 import { getLocations } from "./../../api/location/locationApi";
