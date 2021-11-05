@@ -4,36 +4,19 @@ import "./profile.css";
 import { getLocations } from "./../../api/location/locationApi";
 import ProfileLocation from "../../api/location/location";
 import { getEpisodeNames } from "../../api/episode/episodeApi";
+import ProfileCardRow from "./profileCardRow";
 
 const ProfileCard = ({ character }: { character: Character }): ReactElement => {
-  const [location, setLocation] = useState<ProfileLocation | undefined>();
-  const [origin, setOrigin] = useState<ProfileLocation | undefined>();
+  const [locations, setLocations] = useState<
+    | {
+        location: ProfileLocation | undefined;
+        origin: ProfileLocation | undefined;
+      }
+    | undefined
+  >();
   const [episodeNames, setEpisodeNames] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [episodeLoading, setEpisodeLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const locationId = character.location.url.substr(
-      character.location.url.lastIndexOf("/") + 1
-    );
-    const originId = character.origin.url.substr(
-      character.origin.url.lastIndexOf("/") + 1
-    );
-    if (locationId || originId) {
-      setIsLoading(true);
-      getLocations(`${locationId},${originId}`).then((result) => {
-        console.log(
-          `location: ${locationId}, origin: ${originId}, result: ${
-            result ? result[0] : ""
-          }`
-        );
-        setLocation(result?.find((location) => location.id === +locationId));
-        setOrigin(result?.find((location) => location.id === +originId));
-        setIsLoading(false);
-      });
-    }
-  }, []);
 
   const fetchEpisodes = async () => {
     const episodesId = character.episode
@@ -45,6 +28,24 @@ const ProfileCard = ({ character }: { character: Character }): ReactElement => {
     setEpisodeLoading(false);
   };
 
+  const fetchLocations = async () => {
+    setIsLoading(true);
+    const locationId = character.location.url.substr(
+      character.location.url.lastIndexOf("/") + 1
+    );
+    const originId = character.origin.url.substr(
+      character.origin.url.lastIndexOf("/") + 1
+    );
+    setIsLoading(true);
+    getLocations(`${locationId},${originId}`).then((result) => {
+      setLocations({
+        location: result?.find((location) => location.id === +locationId),
+        origin: result?.find((location) => location.id === +originId),
+      });
+      setIsLoading(false);
+    });
+  };
+
   return (
     <div className="card">
       <div className="card-image">
@@ -53,38 +54,32 @@ const ProfileCard = ({ character }: { character: Character }): ReactElement => {
       <p className="name">{`${character.name} (${character.gender})`}</p>
       <p>{`${character.species} (${character.status})`}</p>
       <p>
-        {`Episode Numbers: ${character.episode.length},`}{" "}
+        {`Episode Numbers: ${character.episode.length}`}
         {!episodeNames && (
           <span className="episode-name" onClick={fetchEpisodes}>
-            (See Names)
+            (Show Names)
           </span>
-        )}{" "}
+        )}
       </p>
       {episodeLoading && <p>...</p>}
       {!episodeLoading && episodeNames && (
         <p className="card-inner"> {episodeNames} </p>
       )}
+
       <div className="card-inner">
         <p>{`Location: ${character.location.name}`}</p>
-        {isLoading && <p> ... </p>}
-        {!isLoading && location && location.dimension && (
-          <p>
-            {" "}
-            {`Dimension: ${location.dimension}, ResidenceNo: ${location.residents.length}`}{" "}
-          </p>
+        {(isLoading || locations) && (
+          <ProfileCardRow isLoading={isLoading} data={locations?.location} />
         )}
-        {!isLoading && !location && <p> Error in loading location! </p>}
-      </div>
-      <div className="card-inner">
         <p>{`Origin: ${character.origin.name}`}</p>
-        {isLoading && <p> ... </p>}
-        {!isLoading && origin && origin.dimension && (
-          <p>
-            {" "}
-            {`Dimension: ${origin.dimension}, ResidenceNo: ${origin.residents.length}`}{" "}
+        {(isLoading || locations) && (
+          <ProfileCardRow isLoading={isLoading} data={locations?.origin} />
+        )}
+        {!locations && (
+          <p className="episode-name" onClick={fetchLocations}>
+            (Show Details)
           </p>
         )}
-        {!isLoading && !origin && <p> Error in loading origin! </p>}
       </div>
     </div>
   );

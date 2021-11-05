@@ -3,7 +3,7 @@
  * @param id - id of episode
  * @param name - name of episode
  * @param air_data - air_data of episode
- * @param characters - a list of @Character s in episode
+ * @param characters - a list of Character s in episode
  * @param url - url of Episode
  * @param created - created data of episode
  */

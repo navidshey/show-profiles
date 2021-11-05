@@ -9,6 +9,9 @@ const ErrorDiv = styled.div`
   font-size: xxx-large
 `;
 
+/**
+ * @returns Is the component when the page not found, shows the error
+ */
 const NotFount = (): ReactElement => {
   return (
     <ErrorDiv>

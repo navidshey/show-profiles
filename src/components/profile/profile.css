@@ -26,6 +26,14 @@
     align-items: center;
 }
 
+.details-box{
+    background-color: rgb(205 205 205);
+    border-radius: 8px;
+    box-shadow: 0 8px 8px 0 rgba(122, 218, 221, 0.15);
+    padding: 10px;
+    margin:  10px 10px;
+}
+
 .card-image {
     width: 150px;
     height: 150px;
