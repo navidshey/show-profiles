@@ -48,7 +48,7 @@ export interface Character {
 export interface Info {
   count: string;
   pages: number;
-  next: string;
+  next?: string;
   prev: string;
 }
 

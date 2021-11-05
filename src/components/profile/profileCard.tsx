@@ -6,11 +6,15 @@ import ProfileLocation from "../../api/location/location";
 import { getEpisodeNames } from "../../api/episode/episodeApi";
 import ProfileCardRow from "./profileCardRow";
 
-const ProfileCard = ({ character }: { character: Character }): ReactElement => {
+export interface ProfileCardInterface {
+  character: Character;
+}
+
+const ProfileCard = ({ character }: ProfileCardInterface): ReactElement => {
   const [locations, setLocations] = useState<
     | {
-        location: ProfileLocation | undefined;
-        origin: ProfileLocation | undefined;
+        location?: ProfileLocation;
+        origin?: ProfileLocation;
       }
     | undefined
   >();
