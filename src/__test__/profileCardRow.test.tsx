@@ -1,12 +1,10 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import ProfileCardRow, {
-  CardRowInterface,
-} from "../components/profile/profileCardRow";
+import ProfileCardRow, { Props } from "../components/profile/profileCardRow";
 import ProfileLocation from "../api/location/location";
 
-function renderComponent(props?: CardRowInterface) {
-  const defaultProps: CardRowInterface = {
+function renderComponent(props?: Props) {
+  const defaultProps: Props = {
     isLoading: true,
     data: undefined,
   };

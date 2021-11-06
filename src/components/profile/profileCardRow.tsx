@@ -1,27 +1,26 @@
 import React, { ReactElement } from "react";
 import ProfileLocation from "./../../api/location/location";
-import "./profile.css";
+import { DetailedBoxDiv, GeneralP } from "./profileStyle";
 
-export interface CardRowInterface {
+export type Props = {
   isLoading: boolean;
   data?: ProfileLocation;
-}
+};
 
-const ProfileCardRow = ({
-  isLoading,
-  data,
-}: CardRowInterface): ReactElement => {
+const ProfileCardRow = ({ isLoading, data }: Props): ReactElement => {
   return (
     <>
-      {isLoading && <p> ... </p>}
+      {isLoading && <GeneralP> ... </GeneralP>}
       {!isLoading && data && (
-        <div className="details-box">
-          {data.dimension && <p>{`Dimension: ${data.dimension}`}</p>}
-          <p>{`ResidenceNo: ${data.residents.length}`}</p>
-          <p>{`Type: ${data.type}`}</p>
-        </div>
+        <DetailedBoxDiv>
+          {data.dimension && (
+            <GeneralP>{`Dimension: ${data.dimension}`}</GeneralP>
+          )}
+          <GeneralP>{`ResidenceNo: ${data.residents.length}`}</GeneralP>
+          <GeneralP>{`Type: ${data.type}`}</GeneralP>
+        </DetailedBoxDiv>
       )}
-      {!isLoading && !data && <p> Error in loading data! </p>}
+      {!isLoading && !data && <GeneralP> Error in loading data! </GeneralP>}
     </>
   );
 };

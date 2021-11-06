@@ -1,23 +1,30 @@
 import React, { useState, ReactElement } from "react";
 import { Character } from "../../api/profile/profile";
-import "./profile.css";
 import { getLocations } from "./../../api/location/locationApi";
 import ProfileLocation from "../../api/location/location";
 import { getEpisodeNames } from "../../api/episode/episodeApi";
 import ProfileCardRow from "./profileCardRow";
+import {
+  CardDiv,
+  CardImageDiv,
+  CardInnerDiv,
+  EpisodeSpan,
+  GeneralP,
+  NameP,
+} from "./profileStyle";
 
-export interface ProfileCardInterface {
+export type Props = {
   character: Character;
-}
+};
+type locationsStateType =
+  | {
+      location?: ProfileLocation;
+      origin?: ProfileLocation;
+    }
+  | undefined;
 
-const ProfileCard = ({ character }: ProfileCardInterface): ReactElement => {
-  const [locations, setLocations] = useState<
-    | {
-        location?: ProfileLocation;
-        origin?: ProfileLocation;
-      }
-    | undefined
-  >();
+const ProfileCard = ({ character }: Props): ReactElement => {
+  const [locations, setLocations] = useState<locationsStateType>();
   const [episodeNames, setEpisodeNames] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [episodeLoading, setEpisodeLoading] = useState<boolean>(false);
@@ -51,41 +58,38 @@ const ProfileCard = ({ character }: ProfileCardInterface): ReactElement => {
   };
 
   return (
-    <div className="card">
-      <div className="card-image">
+    <CardDiv>
+      <CardImageDiv>
         <img src={character.image} alt={character.name} />
-      </div>
-      <p className="name">{`${character.name} (${character.gender})`}</p>
-      <p>{`${character.species} (${character.status})`}</p>
-      <p>
+      </CardImageDiv>
+      <NameP>{`${character.name} (${character.gender})`}</NameP>
+      <GeneralP>{`${character.species} (${character.status})`}</GeneralP>
+      <GeneralP>
         {`Episode Numbers: ${character.episode.length}`}
         {!episodeNames && (
-          <span className="episode-name" onClick={fetchEpisodes}>
-            (Show Names)
-          </span>
+          <EpisodeSpan onClick={fetchEpisodes}>(Show Names)</EpisodeSpan>
         )}
-      </p>
-      {episodeLoading && <p>...</p>}
+      </GeneralP>
+      {episodeLoading && <GeneralP>...</GeneralP>}
       {!episodeLoading && episodeNames && (
-        <p className="card-inner"> {episodeNames} </p>
+        <CardInnerDiv> {episodeNames} </CardInnerDiv>
+        // <p className="card-inner"> {episodeNames} </p>
       )}
 
-      <div className="card-inner">
-        <p>{`Location: ${character.location.name}`}</p>
+      <CardInnerDiv>
+        <GeneralP>{`Location: ${character.location.name}`}</GeneralP>
         {(isLoading || locations) && (
           <ProfileCardRow isLoading={isLoading} data={locations?.location} />
         )}
-        <p>{`Origin: ${character.origin.name}`}</p>
+        <GeneralP>{`Origin: ${character.origin.name}`}</GeneralP>
         {(isLoading || locations) && (
           <ProfileCardRow isLoading={isLoading} data={locations?.origin} />
         )}
         {!locations && (
-          <p className="episode-name" onClick={fetchLocations}>
-            (Show Details)
-          </p>
+          <EpisodeSpan onClick={fetchLocations}>(Show Details)</EpisodeSpan>
         )}
-      </div>
-    </div>
+      </CardInnerDiv>
+    </CardDiv>
   );
 };
 export default ProfileCard;

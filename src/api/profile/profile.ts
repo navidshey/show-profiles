@@ -4,7 +4,7 @@
  * @param character - a list of @Character s
  */
 export default interface Profile {
-  info: Info;
+  info: PaginationInfo;
   results: Character[];
 }
 
@@ -38,18 +38,18 @@ export interface Character {
   created: string;
 }
 
-/**info about received data pagination
+/**PaginationInfo about received data pagination
  *
  * @param count - total number of data
  * @param pages - number of pages
  * @param next - url to fetch next paged data
  * @param prev - url to fetch previous paged data
  */
-export interface Info {
+export interface PaginationInfo {
   count: string;
   pages: number;
   next?: string;
-  prev: string;
+  prev?: string;
 }
 
 /** A key value to save name and url

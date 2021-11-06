@@ -6,15 +6,5 @@
     color: #54677c;
 }
 
-body {
-    min-height: 100vh;
-    width: 100%;
-    background-color: #e4e4e4;
-    display: flex;
-    /* Responsive behaviour */
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 16px;
-}
+
 

@@ -6,9 +6,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
-import ProfileCard, {
-  ProfileCardInterface,
-} from "./../components/profile/profileCard";
+import ProfileCard, { Props } from "./../components/profile/profileCard";
 
 const mockValidCharacter = {
   created: "2017-11-04T18:48:46.250Z",
@@ -52,8 +50,8 @@ const mockInValidCharacter = {
   url: "https://rickandmortyapi.com/api/character/4",
 };
 
-function renderComponent(props?: ProfileCardInterface) {
-  const defaultProps: ProfileCardInterface = {
+function renderComponent(props?: Props) {
+  const defaultProps: Props = {
     character: mockValidCharacter,
   };
   return render(<ProfileCard {...defaultProps} {...props} />);
