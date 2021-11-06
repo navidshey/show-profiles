@@ -3,52 +3,11 @@ import userEvent from "@testing-library/user-event";
 import {
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import ProfileCard, { Props } from "./../components/profile/profileCard";
+import { mockInValidCharacter, mockValidCharacter } from "../mocks/handlers";
 
-const mockValidCharacter = {
-  created: "2017-11-04T18:48:46.250Z",
-  episode: ["https://rickandmortyapi.com/api/episode/1"],
-  gender: "Male",
-  id: 1,
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  location: {
-    name: "Citadel of Ricks",
-    url: "https://rickandmortyapi.com/api/location/1",
-  },
-  name: "Rick Sanchez",
-  origin: {
-    name: "Earth (C-137)",
-    url: "https://rickandmortyapi.com/api/location/2",
-  },
-  species: "Human",
-  status: "Alive",
-  type: "",
-  url: "https://rickandmortyapi.com/api/character/1",
-};
-
-const mockInValidCharacter = {
-  created: "2017-11-04T18:48:46.250Z",
-  episode: ["https://rickandmortyapi.com/api/episode/4"],
-  gender: "Male",
-  id: 4,
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  location: {
-    name: "Citadel of Ricks",
-    url: "https://rickandmortyapi.com/api/location/4",
-  },
-  name: "Rick Sanchez",
-  origin: {
-    name: "Earth (C-137)",
-    url: "https://rickandmortyapi.com/api/location/4",
-  },
-  species: "Human",
-  status: "Alive",
-  type: "",
-  url: "https://rickandmortyapi.com/api/character/4",
-};
 
 function renderComponent(props?: Props) {
   const defaultProps: Props = {
@@ -63,7 +22,7 @@ describe("<ProfileCard>", () => {
     expect(
       container.querySelector("img")?.src == mockValidCharacter.image
     ).toBeTruthy();
-    expect(container.querySelectorAll("p").length).toEqual(6);
+    expect(container.querySelectorAll("p").length).toEqual(5);
     expect(
       container.querySelectorAll("p").item(0).textContent ==
         `${mockValidCharacter.name} (${mockValidCharacter.gender})`
@@ -84,9 +43,6 @@ describe("<ProfileCard>", () => {
       container.querySelectorAll("p").item(4).textContent ==
         `Origin: ${mockValidCharacter.origin.name}`
     ).toBeTruthy();
-    expect(
-      container.querySelectorAll("p").item(5).textContent == "(Show Details)"
-    ).toBeTruthy();
   });
 
   it("shoud fetch episode names when click Show Names link", async () => {
@@ -103,7 +59,7 @@ describe("<ProfileCard>", () => {
 
   it("shoud fetch location and origin data when click Show Details link", async () => {
     const { container } = renderComponent();
-    const detail = container.getElementsByClassName("episode-name").item(1);
+    const detail = container.querySelectorAll("span").item(1);
     if (detail) {
       userEvent.click(detail);
       await waitForElementToBeRemoved(() =>
@@ -113,11 +69,15 @@ describe("<ProfileCard>", () => {
     }
   });
 
-  it("shoud fetch location and origin data when click Show Details link", async () => {
+  it("should show Error message on failure in fetching details", async () => {
     const { container } = renderComponent({ character: mockInValidCharacter });
-    const detail = container.getElementsByClassName("episode-name").item(1);
+    const detail = container.querySelectorAll("span").item(1);
     if (detail) {
       userEvent.click(detail);
+        await waitForElementToBeRemoved(() =>
+        screen.queryAllByText("(Show Details)")
+      );
+      expect(screen.queryAllByText('Error in loading data!').length == 2).toBeTruthy();
       expect(
         container.getElementsByClassName("details-box").length == 0
       ).toBeTruthy();

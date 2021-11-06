@@ -80,9 +80,6 @@ export const handlers = [
   rest.get("https://rickandmortyapi.com/api/episode/4", (req, res, ctx) => {
     return res(
       ctx.status(500),
-      ctx.json({
-        errorMessage: "error in fetch episode",
-      })
     );
   }),
 
@@ -111,7 +108,60 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(responseEpisode));
   }),
 
-  rest.get("https://rickandmortyapi.com/api/location/4", (req, res, ctx) => {
+    rest.get("https://rickandmortyapi.com/api/location/4,4", (req, res, ctx) => {
     return res(ctx.status(500));
   }),
-];
+];  
+
+export const mockValidCharacter = {
+  created: "2017-11-04T18:48:46.250Z",
+  episode: ["https://rickandmortyapi.com/api/episode/1"],
+  gender: "Male",
+  id: 1,
+  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+  location: {
+    name: "Citadel of Ricks",
+    url: "https://rickandmortyapi.com/api/location/1",
+  },
+  name: "Rick Sanchez",
+  origin: {
+    name: "Earth (C-137)",
+    url: "https://rickandmortyapi.com/api/location/2",
+  },
+  species: "Human",
+  status: "Alive",
+  type: "",
+  url: "https://rickandmortyapi.com/api/character/1",
+};
+export const mockInValidCharacter = {
+  created: "2017-11-04T18:48:46.250Z",
+  episode: ["https://rickandmortyapi.com/api/episode/4"],
+  gender: "Male",
+  id: 4,
+  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+  location: {
+    name: "Citadel of Ricks",
+    url: "https://rickandmortyapi.com/api/location/4",
+  },
+  name: "Rick Sanchez",
+  origin: {
+    name: "Earth (C-137)",
+    url: "https://rickandmortyapi.com/api/location/4",
+  },
+  species: "Human",
+  status: "Alive",
+  type: "",
+  url: "https://rickandmortyapi.com/api/character/4",
+};
+export const mockLocation: ProfileLocation = {
+  created: "2017-11-10T13:08:13.191Z",
+  dimension: "unknown",
+  id: 3,
+  name: "Citadel of Ricks",
+  residents: [
+    "https://rickandmortyapi.com/api/character/8",
+    "https://rickandmortyapi.com/api/character/14",
+  ],
+  type: "Space station",
+  url: "https://rickandmortyapi.com/api/location/3",
+};

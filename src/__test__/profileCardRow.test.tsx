@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import ProfileCardRow, { Props } from "../components/profile/profileCardRow";
-import ProfileLocation from "../api/location/location";
+import { mockLocation } from "../mocks/handlers";
 
 function renderComponent(props?: Props) {
   const defaultProps: Props = {
@@ -11,18 +11,6 @@ function renderComponent(props?: Props) {
   return render(<ProfileCardRow {...defaultProps} {...props} />);
 }
 
-const location: ProfileLocation = {
-  created: "2017-11-10T13:08:13.191Z",
-  dimension: "unknown",
-  id: 3,
-  name: "Citadel of Ricks",
-  residents: [
-    "https://rickandmortyapi.com/api/character/8",
-    "https://rickandmortyapi.com/api/character/14",
-  ],
-  type: "Space station",
-  url: "https://rickandmortyapi.com/api/location/3",
-};
 
 describe("<ProfileCardRow>", () => {
   it("should show loading at initial", async () => {
@@ -38,14 +26,14 @@ describe("<ProfileCardRow>", () => {
   });
 
   it("should show data when receive it", async () => {
-    const { container } = renderComponent({ isLoading: false, data: location });
+    const { container } = renderComponent({ isLoading: false, data: mockLocation });
     expect(container.querySelectorAll("p").length).toEqual(3);
   });
 
   it("should show data partially when dimension is empty", async () => {
     const { container } = renderComponent({
       isLoading: false,
-      data: { ...location, dimension: "" },
+      data: { ...mockLocation, dimension: "" },
     });
     expect(container.querySelectorAll("p").length).toEqual(2);
   });

@@ -68,8 +68,9 @@ export const GeneralP = styled.p`
 `;
 
 export const DetailedBoxDiv = styled.div`
-  background-color: rgb(205 205 205);
+  background-color: rgb(192 225 222);
   border-radius: 8px;
+  width: 100%;
   box-shadow: 0 8px 8px 0 rgba(122, 218, 221, 0.15);
   padding: 10px;
   margin: 10px 10px;
