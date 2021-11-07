@@ -78,9 +78,7 @@ export const handlers = [
   }),
 
   rest.get("https://rickandmortyapi.com/api/episode/4", (req, res, ctx) => {
-    return res(
-      ctx.status(500),
-    );
+    return res(ctx.status(500));
   }),
 
   rest.get("https://rickandmortyapi.com/api/location/1,2", (req, res, ctx) => {
@@ -108,10 +106,10 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(responseEpisode));
   }),
 
-    rest.get("https://rickandmortyapi.com/api/location/4,4", (req, res, ctx) => {
+  rest.get("https://rickandmortyapi.com/api/location/4,4", (req, res, ctx) => {
     return res(ctx.status(500));
   }),
-];  
+];
 
 export const mockValidCharacter = {
   created: "2017-11-04T18:48:46.250Z",

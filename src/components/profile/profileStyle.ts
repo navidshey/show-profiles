@@ -52,6 +52,7 @@ export const NameP = styled.p`
   font-weight: bold;
   letter-spacing: 0.8px;
   margin-bottom: 8px;
+  text-align: center;
 `;
 
 export const EpisodeSpan = styled.span`

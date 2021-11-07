@@ -8,7 +8,6 @@ import {
 import ProfileCard, { Props } from "./../components/profile/profileCard";
 import { mockInValidCharacter, mockValidCharacter } from "../mocks/handlers";
 
-
 function renderComponent(props?: Props) {
   const defaultProps: Props = {
     character: mockValidCharacter,
@@ -74,10 +73,12 @@ describe("<ProfileCard>", () => {
     const detail = container.querySelectorAll("span").item(1);
     if (detail) {
       userEvent.click(detail);
-        await waitForElementToBeRemoved(() =>
+      await waitForElementToBeRemoved(() =>
         screen.queryAllByText("(Show Details)")
       );
-      expect(screen.queryAllByText('Error in loading data!').length == 2).toBeTruthy();
+      expect(
+        screen.queryAllByText("Error in loading data!").length == 2
+      ).toBeTruthy();
       expect(
         container.getElementsByClassName("details-box").length == 0
       ).toBeTruthy();

@@ -11,7 +11,6 @@ function renderComponent(props?: Props) {
   return render(<ProfileCardRow {...defaultProps} {...props} />);
 }
 
-
 describe("<ProfileCardRow>", () => {
   it("should show loading at initial", async () => {
     const { container } = renderComponent();
@@ -26,7 +25,10 @@ describe("<ProfileCardRow>", () => {
   });
 
   it("should show data when receive it", async () => {
-    const { container } = renderComponent({ isLoading: false, data: mockLocation });
+    const { container } = renderComponent({
+      isLoading: false,
+      data: mockLocation,
+    });
     expect(container.querySelectorAll("p").length).toEqual(3);
   });
 

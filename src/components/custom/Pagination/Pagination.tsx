@@ -80,6 +80,7 @@ const PageLink = styled(Link)`
   &:hover {
     background-color: ${activeColor};
     color: white;
+    cursor: pointer;
     border: 1px solid ${activeColor};
   }
 `;
