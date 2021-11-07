@@ -1,6 +1,12 @@
 # Profile Loader
 
-An application developed with React and Typescript. In this project using [rickandmortyapi](rickandmortyapi.com) api, we fetch some characters and show some data for each of them. To fetching data Axios is used.
+An application developed with React and Typescript. In this project using [rickandmortyapi](rickandmortyapi.com) api, we fetch some characters and show some data for each of them. To fetching data Axios is used. A simple pagination componenet is deveoped to pagination. For testingn Jest and React Testing Library is used and for Mocking data [Mock Service Worker](https://mswjs.io/docs/api/setup-server).
+
+
+## View Live Demo
+
+you can see a demo [here](https://61880d9667d5408e0b074b05--elastic-blackwell-8a3596.netlify.app/)
+
 
 ## Run The Application
 
