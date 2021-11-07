@@ -8,7 +8,7 @@ const getEpisodeUrl = "https://rickandmortyapi.com/api/episode/";
  * @param ids - episode ids which are seperated by ,
  * @returns - an array of Episodes or undefined when something were wrong!
  */
-//TODO: most of the episodes are shared between chacacters, so it is better to cache received data.
+//TODO: better to cache received data.
 export const getEpisodes = async (
   ids: string
 ): Promise<Episode[] | Episode | undefined> => {

@@ -8,7 +8,7 @@ const getLocationUrl = "https://rickandmortyapi.com/api/location/";
  * @param ids - location ids which are seperated by ,
  * @returns - an array of Locaitons or undefined when something were wrong!
  */
-//TODO: most of the location are same, so it is better to cache received data.
+//TODO: better to cache received data.
 export const getLocations = async (
   ids: string
 ): Promise<ProfileLocation[] | undefined> => {

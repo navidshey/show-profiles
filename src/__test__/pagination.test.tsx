@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { PaginationInfo } from "../api/profile/profile";
 import Pagination from "./../components/custom/Pagination/Pagination";
