@@ -15,6 +15,8 @@ describe("<ProfileCardRow>", () => {
   it("should show loading at initial", async () => {
     const { container } = renderComponent();
     expect(container.querySelector("p")?.textContent == " ... ").toBeTruthy();
+    // HINT: this way is more expressive and gives better debugging info in case of failure:
+    // expect(container.querySelector("p")).toHaveTextContent("...");
   });
 
   it("should show error on no data received", () => {

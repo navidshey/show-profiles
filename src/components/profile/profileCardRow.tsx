@@ -7,6 +7,7 @@ export type Props = {
   data?: ProfileLocation;
 };
 
+// FIXME: what does this component do? How does it match with its name?
 const ProfileCardRow = ({ isLoading, data }: Props): ReactElement => {
   return (
     <>

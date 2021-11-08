@@ -6,6 +6,8 @@ const getEpisodeUrl = "https://rickandmortyapi.com/api/episode/";
 /**get an array of episodes
  *
  * @param ids - episode ids which are seperated by ,
+ * FIXME: for 1 episode an object is received by API. Maybe better to unify response
+ * and always return array?
  * @returns - an array of Episodes or undefined when something were wrong!
  */
 //TODO: better to cache received data.

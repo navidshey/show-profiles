@@ -6,6 +6,7 @@ const getLocationUrl = "https://rickandmortyapi.com/api/location/";
 /**get an array of locations
  *
  * @param ids - location ids which are seperated by ,
+ * FIXME: API can return a single object instead of an array.
  * @returns - an array of Locaitons or undefined when something were wrong!
  */
 //TODO: better to cache received data.

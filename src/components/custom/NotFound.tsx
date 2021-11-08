@@ -15,6 +15,7 @@ const NotFount = (): ReactElement => {
 
 export default NotFount;
 
+// FIXME: the styles do not work
 const ErrorDiv = styled.div`
     margin: auto,
     text-align: center,

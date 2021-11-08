@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+// HINT: it is better to avoid tags names in styled component's name for better abstraction.
+
 export const CardDiv = styled.div`
   position: relative;
   width: 340px;

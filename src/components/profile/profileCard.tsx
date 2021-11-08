@@ -1,9 +1,12 @@
+// FIXME: some files named in camelCase, some in PascalCase. Naming should follow the same system in the whole project.
 import React, { useState, ReactElement } from "react";
 import { Character } from "../../api/profile/profile";
 import { getLocations } from "./../../api/location/locationApi";
 import ProfileLocation from "../../api/location/location";
 import { getEpisodeNames } from "../../api/episode/episodeApi";
 import ProfileCardRow from "./profileCardRow";
+// HINT: styled components can be imported as `import * as Styled from './profileStyle';`
+// It helps you to avoid naming conflicts and makes JSX more expressive.
 import {
   CardDiv,
   CardImageDiv,
