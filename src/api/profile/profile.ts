@@ -2,6 +2,7 @@
  *
  * @param info - pagination @Info
  * @param character - a list of @Character s
+ * FIXME: interface's name doesn't describe the data it stores. Should be renamed.
  */
 export default interface Profile {
   info: PaginationInfo;

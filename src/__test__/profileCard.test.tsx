@@ -64,6 +64,7 @@ describe("<ProfileCard>", () => {
       await waitForElementToBeRemoved(() =>
         screen.getAllByText("(Show Details)")
       );
+      // FIXME: test does not work, there is no `.details-box` usage in the project.
       expect(container.getElementsByClassName("details-box")).toBeTruthy();
     }
   });
