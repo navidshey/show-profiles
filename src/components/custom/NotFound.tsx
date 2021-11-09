@@ -8,7 +8,7 @@ const NotFount = (): ReactElement => {
     <ErrorDiv>
       404
       <br />
-      The page not fount !
+      The page not found !
     </ErrorDiv>
   );
 };
@@ -16,9 +16,9 @@ const NotFount = (): ReactElement => {
 export default NotFount;
 
 const ErrorDiv = styled.div`
-    margin: auto,
-    text-align: center,
-    margin-top: 10%,
-    color: red
-  font-size: xxx-large
+  margin: auto;
+  text-align: center;
+  margin-top: 10%;
+  color: red;
+  font-size: xxx-large;
 `;

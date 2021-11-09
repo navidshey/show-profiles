@@ -1,11 +1,11 @@
 import { rest } from "msw";
 import Episode from "../api/episode/episode";
 import ProfileLocation from "../api/location/location";
-import Profile from "../api/profile/profile";
+import CharactersPagingList from "../api/profile/profile";
 
 export const handlers = [
   rest.get("https://rickandmortyapi.com/api/character", (req, res, ctx) => {
-    const responseProfile: Profile = {
+    const responseProfile: CharactersPagingList = {
       info: {
         count: "2",
         next: undefined,

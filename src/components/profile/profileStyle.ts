@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const CardDiv = styled.div`
+export const Card = styled.div`
   position: relative;
   width: 340px;
   background-color: #fff;
@@ -14,7 +14,7 @@ export const CardDiv = styled.div`
   align-items: center;
 `;
 
-export const CardInnerDiv = styled.div`
+export const CardInner = styled.div`
   position: relative;
   background-color: rgb(227 239 238);
   border-radius: 4px;
@@ -27,7 +27,7 @@ export const CardInnerDiv = styled.div`
   align-items: center;
 `;
 
-export const CardImageDiv = styled.div`
+export const CardImage = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -45,7 +45,7 @@ export const CardImageDiv = styled.div`
   }
 `;
 
-export const NameP = styled.p`
+export const Name = styled.p`
   margin-top: 80px;
   font-size: 1.4em;
   color: #333;
@@ -55,20 +55,20 @@ export const NameP = styled.p`
   text-align: center;
 `;
 
-export const EpisodeSpan = styled.span`
+export const Episode = styled.span`
   color: steelblue;
   cursor: pointer;
   margin-left: 10px;
 `;
 
-export const GeneralP = styled.p`
+export const General = styled.p`
   line-height: 24px;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
   text-align: center;
 `;
 
-export const DetailedBoxDiv = styled.div`
+export const DetailedBox = styled.div`
   background-color: rgb(192 225 222);
   border-radius: 8px;
   width: 100%;

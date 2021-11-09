@@ -1,9 +1,9 @@
-/**Profile containing pagination Info and list of Character
+/**CharactersList containing pagination Info and list of Character
  *
  * @param info - pagination @Info
  * @param character - a list of @Character s
  */
-export default interface Profile {
+export default interface CharactersPagingList {
   info: PaginationInfo;
   results: Character[];
 }

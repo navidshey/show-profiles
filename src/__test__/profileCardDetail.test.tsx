@@ -1,6 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import ProfileCardRow, { Props } from "../components/profile/profileCardRow";
+import ProfileCardDetail, {
+  Props,
+} from "../components/profile/profileCardDetail";
 import { mockLocation } from "../mocks/handlers";
 
 function renderComponent(props?: Props) {
@@ -8,20 +10,20 @@ function renderComponent(props?: Props) {
     isLoading: true,
     data: undefined,
   };
-  return render(<ProfileCardRow {...defaultProps} {...props} />);
+  return render(<ProfileCardDetail {...defaultProps} {...props} />);
 }
 
 describe("<ProfileCardRow>", () => {
   it("should show loading at initial", async () => {
     const { container } = renderComponent();
-    expect(container.querySelector("p")?.textContent == " ... ").toBeTruthy();
+    expect(container.querySelector("p")).toHaveTextContent("...");
   });
 
   it("should show error on no data received", () => {
     const { container } = renderComponent({ isLoading: false });
-    expect(
-      container.querySelector("p")?.textContent == " Error in loading data! "
-    ).toBeTruthy();
+    expect(container.querySelector("p")).toHaveTextContent(
+      "Error in loading data!"
+    );
   });
 
   it("should show data when receive it", async () => {

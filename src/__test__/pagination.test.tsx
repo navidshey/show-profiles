@@ -26,7 +26,7 @@ function renderComponent(props?: PaginationInfo) {
 describe("<PaginationInfo>", () => {
   it("should show 1 box in pages:1 and prev=null and next=null", async () => {
     const { container } = renderComponent();
-    expect(container.querySelector("a")?.textContent == "1").toBeTruthy();
+    expect(container.querySelector("a")).toHaveTextContent("1");
     expect(container.querySelectorAll("a")?.length == 1).toBeTruthy();
   });
 

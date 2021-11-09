@@ -11,6 +11,8 @@ import { mockInValidCharacter, mockValidCharacter } from "../mocks/handlers";
 function renderComponent(props?: Props) {
   const defaultProps: Props = {
     character: mockValidCharacter,
+    loadingCharacter: false,
+    episodesLoaded: false,
   };
   return render(<ProfileCard {...defaultProps} {...props} />);
 }
@@ -22,55 +24,42 @@ describe("<ProfileCard>", () => {
       container.querySelector("img")?.src == mockValidCharacter.image
     ).toBeTruthy();
     expect(container.querySelectorAll("p").length).toEqual(5);
-    expect(
-      container.querySelectorAll("p").item(0).textContent ==
-        `${mockValidCharacter.name} (${mockValidCharacter.gender})`
-    ).toBeTruthy();
-    expect(
-      container.querySelectorAll("p").item(1).textContent ==
-        `${mockValidCharacter.species} (${mockValidCharacter.status})`
-    ).toBeTruthy();
-    expect(
-      container.querySelectorAll("p").item(2).textContent ==
-        `Episode Numbers: ${mockValidCharacter.episode.length}(Show Names)`
-    ).toBeTruthy();
-    expect(
-      container.querySelectorAll("p").item(3).textContent ==
-        `Location: ${mockValidCharacter.location.name}`
-    ).toBeTruthy();
-    expect(
-      container.querySelectorAll("p").item(4).textContent ==
-        `Origin: ${mockValidCharacter.origin.name}`
-    ).toBeTruthy();
-  });
-
-  it("shoud fetch episode names when click Show Names link", async () => {
-    const { container } = renderComponent();
-    const span = container.querySelector("span");
-    if (span) {
-      userEvent.click(span);
-      await waitForElementToBeRemoved(() =>
-        screen.getAllByText("(Show Names)")
-      );
-      expect(screen.getByText("Pilot")).toBeInTheDocument();
-    }
+    expect(container.querySelectorAll("p").item(0)).toHaveTextContent(
+      `${mockValidCharacter.name} (${mockValidCharacter.gender})`
+    );
+    expect(container.querySelectorAll("p").item(1)).toHaveTextContent(
+      `${mockValidCharacter.species} (${mockValidCharacter.status})`
+    );
+    expect(container.querySelectorAll("p").item(2)).toHaveTextContent(
+      `Episode Numbers: 1`
+    );
+    expect(container.querySelectorAll("p").item(3)).toHaveTextContent(
+      `Location: ${mockValidCharacter.location.name}`
+    );
+    expect(container.querySelectorAll("p").item(4)).toHaveTextContent(
+      `Origin: ${mockValidCharacter.origin.name}`
+    );
   });
 
   it("shoud fetch location and origin data when click Show Details link", async () => {
-    const { container } = renderComponent();
-    const detail = container.querySelectorAll("span").item(1);
+    const { getByTestId, getAllByTestId } = renderComponent();
+    const detail = getByTestId("show-detail-link");
     if (detail) {
       userEvent.click(detail);
       await waitForElementToBeRemoved(() =>
         screen.getAllByText("(Show Details)")
       );
-      expect(container.getElementsByClassName("details-box")).toBeTruthy();
+      expect(getAllByTestId("details-box").length == 2).toBeTruthy();
     }
   });
 
   it("should show Error message on failure in fetching details", async () => {
-    const { container } = renderComponent({ character: mockInValidCharacter });
-    const detail = container.querySelectorAll("span").item(1);
+    const { getByTestId } = renderComponent({
+      character: mockInValidCharacter,
+      loadingCharacter: false,
+      episodesLoaded: false,
+    });
+    const detail = getByTestId("show-detail-link");
     if (detail) {
       userEvent.click(detail);
       await waitForElementToBeRemoved(() =>
@@ -78,9 +67,6 @@ describe("<ProfileCard>", () => {
       );
       expect(
         screen.queryAllByText("Error in loading data!").length == 2
-      ).toBeTruthy();
-      expect(
-        container.getElementsByClassName("details-box").length == 0
       ).toBeTruthy();
     }
   });
