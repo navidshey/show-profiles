@@ -5,6 +5,7 @@ import { getAllCharacters } from "../../api/profile/profileApi";
 import ProfileCard from "./profileCard";
 import Pagination from "../custom/Pagination/Pagination";
 import { getEpisodes } from "../../api/episode/episodeApi";
+import Reload from "./../custom/Reload";
 
 const Profiles = (): ReactElement => {
   const { page } = useParams<{
@@ -15,13 +16,7 @@ const Profiles = (): ReactElement => {
   const [profiles, setProfiles] = useState<CharactersPagingList | undefined>();
 
   useEffect(() => {
-    setIsLoading(true);
-    setEpisodesLoaded(false);
-    getAllCharacters(page).then((result) => {
-      setProfiles(result);
-      setIsLoading(false);
-    });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    loadComponentData();
   }, [page]);
 
   useEffect(() => {
@@ -36,6 +31,15 @@ const Profiles = (): ReactElement => {
     fetchEpisodes();
   }, [profiles]);
 
+  const loadComponentData = () => {
+    setIsLoading(true);
+    setEpisodesLoaded(false);
+    getAllCharacters(page).then((result) => {
+      setProfiles(result);
+      setIsLoading(false);
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const fetchEpisodesId = (characters: Character[]): string[] => {
     const result: string[] = [];
     if (characters.length > 0) {
@@ -66,7 +70,12 @@ const Profiles = (): ReactElement => {
             />
           );
         })}
-      {!isLoading && !profiles && <div>Error in fetching data!</div>}
+      {!isLoading && !profiles && (
+        <Reload
+          errorMessage="Error in Loading data!"
+          callBackFunction={loadComponentData}
+        />
+      )}
       {profiles && profiles.info && +profiles.info.count > 0 && (
         <Pagination {...profiles.info}></Pagination>
       )}

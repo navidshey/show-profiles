@@ -1,13 +1,19 @@
 import React, { ReactElement } from "react";
 import ProfileLocation from "../../api/location/location";
 import { DetailedBox, General } from "./profileStyle";
+import Reload from "./../custom/Reload";
 
 export type Props = {
   isLoading: boolean;
   data?: ProfileLocation;
+  callBack: () => void;
 };
 
-const ProfileCardDetail = ({ isLoading, data }: Props): ReactElement => {
+const ProfileCardDetail = ({
+  isLoading,
+  data,
+  callBack,
+}: Props): ReactElement => {
   return (
     <>
       {isLoading && <General> ... </General>}
@@ -20,7 +26,12 @@ const ProfileCardDetail = ({ isLoading, data }: Props): ReactElement => {
           <General>{`Type: ${data.type}`}</General>
         </DetailedBox>
       )}
-      {!isLoading && !data && <General> Error in loading data! </General>}
+      {!isLoading && !data && (
+        <Reload
+          errorMessage="Error in loading data!"
+          callBackFunction={callBack}
+        />
+      )}
     </>
   );
 };

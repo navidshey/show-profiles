@@ -6,6 +6,7 @@ import { getEpisodeNames } from "../../api/episode/episodeApi";
 import ProfileCardDetail from "./profileCardDetail";
 import * as Styled from "./profileStyle";
 import Spinner from "../custom/Spinner/Spinner";
+import Reload from "./../custom/Reload";
 
 export type Props = {
   character: Character;
@@ -44,15 +45,16 @@ const ProfileCard = ({
   };
 
   useEffect(() => {
-    const getEpisodesName = async () => {
-      const episodesId = character.episode
-        .map((episode) => episode.substr(episode.lastIndexOf("/") + 1))
-        .join(",");
-      const episodes = await getEpisodeNames(episodesId);
-      setEpisodeNames(episodes);
-    };
-    if (episodesLoaded) getEpisodesName();
+    if (episodesLoaded) fetchEpisodesName();
   }, [episodesLoaded]);
+
+  const fetchEpisodesName = async () => {
+    const episodesId = character.episode
+      .map((episode) => episode.substr(episode.lastIndexOf("/") + 1))
+      .join(",");
+    const episodes = await getEpisodeNames(episodesId);
+    setEpisodeNames(episodes);
+  };
 
   const fetchLocations = async () => {
     setIsLoading(true);
@@ -95,7 +97,7 @@ const ProfileCard = ({
           <Styled.General>{`${character.species} (${character.status})`}</Styled.General>
           <Styled.General>
             {`Episode Numbers: ${character.episode.length}`}
-            {loadMore && (
+            {loadMore && episodeNames && (
               <>
                 <Styled.Episode onClick={fetchEpisodes}>
                   {shortList()}
@@ -116,20 +118,28 @@ const ProfileCard = ({
               <Styled.CardInner> {episodeNames} </Styled.CardInner>
             </>
           )}
+          {!episodeNames && episodesLoaded && (
+            <Reload
+              errorMessage="Error in Load Names!"
+              callBackFunction={fetchEpisodesName}
+            />
+          )}
 
           <Styled.CardInner>
             <Styled.General>{`Location: ${character.location.name}`}</Styled.General>
-            {(isLoading || locations) && (
+            {(isLoading || (locations && locations.location)) && (
               <ProfileCardDetail
                 isLoading={isLoading}
                 data={locations?.location}
+                callBack={fetchLocations}
               />
             )}
             <Styled.General>{`Origin: ${character.origin.name}`}</Styled.General>
-            {(isLoading || locations) && (
+            {(isLoading || (locations && locations.origin)) && (
               <ProfileCardDetail
                 isLoading={isLoading}
                 data={locations?.origin}
+                callBack={fetchLocations}
               />
             )}
             {!locations && (
