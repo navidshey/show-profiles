@@ -5,6 +5,13 @@ type Props = {
   errorMessage: string;
   callBackFunction: () => void;
 };
+
+/**Shows the error message and a Reload link to run callback function to reload related component again
+ * 
+ * @param errorMessage - the error message to show
+ * @param callBackFunction - callback function of the related component to reloading component's data
+ * @returns 
+ */
 const Reload = ({ errorMessage, callBackFunction }: Props): ReactElement => {
   return (
     <div>
